@@ -969,11 +969,11 @@ odk2EAVA <- function(odk, id_col) {
 
   odkNames <- tolower(names(odk))
   whoNames_add <- c("Id10183","Id10167","Id10173","Id10161","Id10250","Id10120","Id10182","Id10148","Id10234",
-                    "Id10126","Id10446","Id10151","Id10154","Id1020")
+                    "Id10126","Id10446","Id10151","Id10154")
   whoNames_add <- tolower(whoNames_add)
   eavaNames <- c("i183b","fb_day0","i173b","i167c","i161b","i250b","i120c","i182d","i148d","i234c",
                  "i126o","i446o","i183c","i182e","i151b","i148e","i234d","i173b","i154c","i154d","i173c",
-                 "i167c","i120c")
+                 "i167d","i120d")
   eavaOut <- matrix(".", nrow = nrow(odk), ncol = length(eavaNames))
 
   # i183b
@@ -1082,13 +1082,13 @@ odk2EAVA <- function(odk, id_col) {
   eavaOut[str_detect(tolower(odk[, indexData]), "no"), 21] <- "n"
   eavaOut[str_detect(tolower(odk[, indexData]), "dk|DK|Doesn't Know|doesn't know|does not know|Does Not Know|Does not know"), 21] <- "."
   eavaOut[odk[, indexData] == "", 21] <- "."
-  # i167c
+  # i167d
   indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[2]))
   eavaOut[odk[, indexData] > 2, 22] <- "y"
   eavaOut[odk[, indexData] <=2, 22] <- "n"
   eavaOut[is.na(odk[, indexData]), 22] <- "."
-  # i120c
-  indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[14]))
+  # i120d
+  indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[6]))
   eavaOut[odk[, indexData] <= 1, 23] <- "y"
   eavaOut[odk[, indexData] > 1, 23] <- "n"
   eavaOut[is.na(odk[, indexData]), 23] <- "."
