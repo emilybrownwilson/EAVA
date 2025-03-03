@@ -1,4 +1,5 @@
-#' Expert Algorithm VA
+
+#' Title
 #'
 #' @param odk
 #' @param id_col
@@ -7,7 +8,6 @@
 #' @export
 #'
 #' @examples
-#'
 odk2EAVA <- function(odk, id_col) {
   odkNames <- tolower(names(odk))
   whoNames <- c("Id10004", "Id10004", "Id10019", "Id10019",
