@@ -9,6 +9,37 @@
 #'
 #' @examples
 odk2EAVA <- function(odk, id_col) {
+  # Currently CrossVA requires all i022a-i022n variables, which public data does not have - improve errors to allow data management outdside function
+  names(odk) <- tolower(colnames(odk))
+  COMSAvariables <- as.vector(colnames(odk))
+
+  # Remove Stillbirths
+  odk$Stillbirth <- ifelse(odk$id10104 %in% c("no","dk") & odk$id10109 %in% c("no","dk") & odk$id10110 %in% c("no","dk"),1,0)
+  odk <- odk[odk$Stillbirth!=1,]
+
+  # convert id10022 -- need to add this manually
+  odk$id10022 <- odk$ageindaysnew
+
+  odk$i022a <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew  >= 65*365.25, "y", "n"))
+  odk$i022b <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew >= 50*365.25 & odk$ageindaysnew < 65*365.25, "y","n"))
+  odk$i022c <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew >= 15*365.25 & odk$ageindaysnew < 50*365.25, "y", "n"))
+  odk$i022d <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew >= 5*365.25 & odk$ageindaysnew < 15*365.25, "y", "n"))
+  odk$i022e <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew >= 1*365.25 & odk$ageindaysnew < 5*365.25, "y", "n"))
+  odk$i022f <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew >= 28 & odk$ageindaysnew < 365.25, "y", "n"))
+  odk$i022g <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew < 28, "y", "n"))
+  odk$i022h <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew < 1, "y", "n"))
+  odk$i022i <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew %in% c(1:2), "y", "n"))
+  odk$i022j <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew %in% c(3:7), "y", "n"))
+  odk$i022k <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$ageindaysnew %in% c(8:27), "y", "n"))
+  odk$i022l <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$id10019b == "y" & odk$ageindaysnew >= 12*365.25 & odk$ageindaysnew < 20*365.25, "y", "n"))
+  odk$i022m <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$id10019b == "y" & odk$ageindaysnew >= 20*365.25 & odk$ageindaysnew < 35*365.25, "y", "n"))
+  odk$i022n <- ifelse(is.na(odk$ageindaysnew),".", ifelse(odk$id10019b == "y" & odk$ageindaysnew >= 35*365.25 & odk$ageindaysnew < 49*365.25, "y", "n"))
+
+
+
+
+
+  # CrossVA starts here
   odkNames <- tolower(names(odk))
   whoNames <- c("Id10004", "Id10004", "Id10019", "Id10019",
                 "Id10022", "Id10022", "Id10022", "Id10022", "Id10022",
@@ -950,22 +981,28 @@ odk2EAVA <- function(odk, id_col) {
   colnames(iv5Out) <- c("ID", iv5Names)
 
 
+
+
+
+
+
   # EAVA-specific variables
   names(odk) <- tolower(colnames(odk))
 
-  odk$ageatdeath <- NULL
-  odk$ageatdeath <- odk$ageindays
-  odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_neonate_minutes) & !is.na(odk$isneonatal), odk$age_neonate_minutes/(60*24), odk$ageatdeath)
-  odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_neonate_hours) & !is.na(odk$isneonatal), odk$age_neonate_hours/(24), odk$ageatdeath)
-  odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_neonate_days) & !is.na(odk$isneonatal), odk$age_neonate_days, odk$ageatdeath)
-  odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$ageindaysneonate) & !is.na(odk$isneonatal), odk$ageindaysneonate, odk$ageatdeath)
-  odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_child_months) & !is.na(odk$ischild), odk$age_child_months*30.4, odk$ageatdeath)
-  odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_child_years) & !is.na(odk$ischild), odk$age_child_years*365.25, odk$ageatdeath)
-  odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_adult) & !is.na(odk$isadult), odk$age_adult*365.25, odk$ageatdeath)
-  odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$ageinyears) & !is.na(odk$isadult), odk$ageinyears*365.25, odk$ageatdeath)
-  odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$ageinmonths) & !is.na(odk$isadult), odk$ageinmonths*30.4, odk$ageatdeath)
-
-  odk$age <- odk$ageatdeath
+  # odk$ageatdeath <- NULL
+  # odk$ageatdeath <- odk$ageindays
+  # odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_neonate_minutes) & !is.na(odk$isneonatal), odk$age_neonate_minutes/(60*24), odk$ageatdeath)
+  # odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_neonate_hours) & !is.na(odk$isneonatal), odk$age_neonate_hours/(24), odk$ageatdeath)
+  # odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_neonate_days) & !is.na(odk$isneonatal), odk$age_neonate_days, odk$ageatdeath)
+  # odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$ageindaysneonate) & !is.na(odk$isneonatal), odk$ageindaysneonate, odk$ageatdeath)
+  # odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_child_months) & !is.na(odk$ischild), odk$age_child_months*30.4, odk$ageatdeath)
+  # odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_child_years) & !is.na(odk$ischild), odk$age_child_years*365.25, odk$ageatdeath)
+  # odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$age_adult) & !is.na(odk$isadult), odk$age_adult*365.25, odk$ageatdeath)
+  # odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$ageinyears) & !is.na(odk$isadult), odk$ageinyears*365.25, odk$ageatdeath)
+  # odk$ageatdeath <- ifelse(is.na(odk$ageatdeath) & !is.na(odk$ageinmonths) & !is.na(odk$isadult), odk$ageinmonths*30.4, odk$ageatdeath)
+  #
+  # odk$age <- odk$ageatdeath
+  odk$age <- odk$ageindaysnew
 
   odkNames <- tolower(names(odk))
   whoNames_add <- c("Id10183","Id10167","Id10173","Id10161","Id10250","Id10120","Id10182","Id10148","Id10234",
