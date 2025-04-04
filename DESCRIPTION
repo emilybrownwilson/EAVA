@@ -4,13 +4,15 @@ Title: What the Package Does (Title Case)
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
+      "Emily", "Wilson",
+      email = "wilsonem@gmail.com",
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+Description: Uses a Verbal Autopsy Expert Algorithm to assign causes of death using 2016 WHO Verbal Autopsy Questionnaire data. 
+    odk2EAVA() convert the data to a standard input format and codEAVA() uses the presence and absence of signs and symptoms 
+    reported in the Verbal Autopsy interview to diagnose common causes of death. A deterministic algorithm assigns a single cause 
+    to each Verbal Autopsy interview record, using a hiearchy of all common causes for neonates or children 1 to 59 months of age.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

@@ -7,8 +7,13 @@
 codEAVA(df, age_group)
 }
 \arguments{
-\item{age_group}{}
+\item{df}{A data frame frame with 2016 WHO VA responses in openVA input format}
+
+\item{age_group}{Age group input, either "neonate" or "child"}
+}
+\value{
+A two-column data frame with unique identifier and cause of death
 }
 \description{
-codEAVA
+Assigns cause of death by Expert Algorithm Verbal Autopsy
 }
