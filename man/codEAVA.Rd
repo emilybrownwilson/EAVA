@@ -15,5 +15,5 @@ codEAVA(df, age_group)
 A two-column data frame with unique identifier and cause of death
 }
 \description{
-Assigns cause of death by Expert Algorithm Verbal Autopsy
+Assigns cause of death by Verbal Autopsy Expert Algorithm
 }

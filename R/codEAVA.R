@@ -1,5 +1,5 @@
 #' @title codEAVA
-#' @description Assigns cause of death by Expert Algorithm Verbal Autopsy
+#' @description Assigns cause of death by Verbal Autopsy Expert Algorithm
 #' @param df A data frame frame with 2016 WHO VA responses in openVA input format
 #' @param age_group Age group input, either "neonate" or "child"
 #' @returns A two-column data frame with unique identifier and cause of death
