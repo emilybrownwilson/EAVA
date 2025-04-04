@@ -1,6 +1,7 @@
-# Objective: run openVA using de-identified data which is available publicly: https://comsamozambique.org/data-access
+# Objective:
+# use odk2EAVA to convert de-identified data which is available publicly: https://comsamozambique.org/data-access
 # this data downloads as Comsa_VASA_20240412
-# use CrossEAVA to convert even though this may cause fidelity changes to what is on the portal or what is in the papers
+# use codEAVA to get EAVA causes of death
 
 rm(list=ls())
 
@@ -12,6 +13,7 @@ library(stringr)
 file <- getwd()
 file
 odk <- read.csv(file.path(file,"Data/data_public.csv"), stringsAsFactors = FALSE)
+
 
 odk2EAVA <- function(odk, id_col)
 {
