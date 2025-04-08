@@ -4,7 +4,7 @@
 #' @param id_col A unique identifier for each record within the odk data frame
 #' @returns A data frame that contains variable names and values which have been converted to openVA convention
 #' @export
-#' @usage data_public is de-identified example data which is available publicly: https://comsamozambique.org/data-access
+#' @usage data_public is de-identified example data which is available publicly
 odk2EAVA <- function(odk, id_col) {
   # Currently CrossVA requires all i022a-i022n variables, which public data does not have - improve errors to allow data management outdside function
   names(odk) <- tolower(colnames(odk))

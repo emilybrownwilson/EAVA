@@ -1,6 +1,8 @@
 ---
-title: "EAVA"
-output: rmarkdown::html_vignette
+title: "Overview of EAVA"
+date: "`r Sys.Date()`"
+output: html_document
+bibliography: bibliography.bib
 vignette: >
   %\VignetteIndexEntry{EAVA}
   %\VignetteEngine{knitr::rmarkdown}
@@ -17,3 +19,40 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(EAVA)
 ```
+
+## Introduction 
+
+Causes of death (CODs) are not known for about two-thirds of the global population [@cejudo2023]. Verbal Autopsies (VAs) are routinely conducted questionnaires which capture community or population level causes of death in settings where civil registration and health systems are weak [@WHO2016]. Historically, causes were ascertained by physicians, who interpreted signs and symptoms reported by a decedent's caregiver or next-of-kin, and assigned a cause. In recent years, computer-coded verbal autopsy (CCVA) algorithms have been developed to conserve physician time in resource-limited settings [@InterVA; @InSilicoVA; @EAVA]. 
+
+The EAVA package consists of two functions which parallel data processing and analysis of InterVA5 and InSilicoVA in the openVA package.
+
+```{r, warning = FALSE, message = FALSE, results = 'hide'}
+library(EAVA)
+library(stringi)
+library(stringr)
+```
+
+### odk2EAVA
+For demonstration purposes, we will use "data_public," which is publicly available from the Countrywide Mortality Surveillance for Action project website https://comsamozambique.org/data-access
+```{r, warning = FALSE, message = FALSE, results = 'hide'}
+data <- as.data.frame(data_public)
+output <- odk2EAVA(data, id_col  = "comsa_id")
+```
+The resulting output will consist of a unique identifier (ID) and 378 signs and symptoms for evaluation and COD assignment by EAVA.
+
+### codEAVA
+The output of odk2EAVA becomes the input file for codEAVA. This function assigns causes based on presence and absence of symptoms. All records are evaluated for all causes. Once each record has met or not met the diagnostic criteria for each cause, records are assigned a single cause based on a deterministic hierarchy of all causes, so that each record will have the first cause for which it met the diagnostic criteria. If no cause is assigned, the record will have an "unspecified" COD.
+```{r, warning = FALSE, message = FALSE, results = 'hide'}
+EAVA_neonate <- codEAVA(output, "neonate")
+EAVA_child <- codEAVA(output, "child")
+```
+
+```{r, warning = FALSE, message = FALSE}
+head(EAVA_neonate)
+head(EAVA_child)
+```
+
+## References
+<div id="refs"></div>
+
+
