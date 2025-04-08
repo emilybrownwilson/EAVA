@@ -1,9 +1,8 @@
 Package: EAVA
 Type: Package
-Title: Deterministic Verbal Autopsy Coding with Verbal Autopsy Expert Algorithm
+Title: Deterministic Verbal Autopsy Coding with "Verbal Autopsy Expert Algorithm"
 Version: 0.1.0
-Author: Emily Wilson, Henry Kalter
-Contributor: Abhi Datta, Sandipan Pramanik
+Authors: Emily Wilson, Henry Kalter, Abhi Datta, Sandipan Pramanik, Robert Black
 Maintainer: Emily Wilson <wilsonem@gmail.com>
 Authors@R: c(
     person(
@@ -20,13 +19,19 @@ Authors@R: c(
       given = "Abhi",
       family = "Datta",
       email =  "abhidatta@jhu.edu",
-      role = c("ctb")),
+      role = c("aut")),
     person(
       given = "Sandipan",
       family = "Pramanik",
       email =  "spraman4@jhmi.edu",
-      role = c("ctb"))
+      role = c("aut")),
+    person(
+      given = "Robert",
+      family = "Black",
+      email =  "rblack1@jhu.edu",
+      role = c("aut"))
   )
+Funder: This work was supported by the Gates Foundation Grant INV-03484
 Description: Uses a Verbal Autopsy Expert Algorithm to assign causes of death using 2016 WHO Verbal Autopsy Questionnaire data. odk2EAVA() convert the data to a standard input format and codEAVA() uses the presence and absence of signs and symptoms reported in the Verbal Autopsy interview to diagnose common causes of death. A deterministic algorithm assigns a single cause to each Verbal Autopsy interview record, using a hierarchy of all common causes for neonates or children 1 to 59 months of age.
 License: GPL-2
 Encoding: UTF-8
