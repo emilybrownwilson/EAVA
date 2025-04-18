@@ -3,17 +3,11 @@
 \name{codEAVA}
 \alias{codEAVA}
 \title{codEAVA}
-\format{
-data_public is a subset of publicly available WHO 2016 VA Questionnaire data
-}
-\source{
-<https://comsamozambique.org/data-access>
-}
 \usage{
 codEAVA(df, age_group)
 }
 \arguments{
-\item{df}{A data frame frame with 2016 WHO VA responses in openVA input format}
+\item{df}{A data frame with 2016 WHO VA responses in openVA input format}
 
 \item{age_group}{Age group input, either "neonate" or "child"}
 }
