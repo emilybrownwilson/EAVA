@@ -3,8 +3,14 @@
 \name{odk2EAVA}
 \alias{odk2EAVA}
 \title{odk2EAVA}
+\format{
+data_public is a subset of publicly available WHO 2016 VA Questionnaire data
+}
+\source{
+<https://comsamozambique.org/data-access>
+}
 \usage{
-data_public
+odk2EAVA(odk, id_col)
 }
 \arguments{
 \item{odk}{A data frame frame which used open data kit (odk) to obtain 2016 WHO VA questionnaire responses}

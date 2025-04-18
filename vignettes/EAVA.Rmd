@@ -28,7 +28,7 @@ Publicly available data from the Countrywide Mortality Surveillance for Action p
 The output of the odk2EAVA() function becomes the input of the codEAVA() function. codEAVA() assigns causes based on the presence and absence of symptoms. Each record is evaluated and either meets or does not meet diagnostic criteria for each cause. Records are assigned a single cause based on a deterministic hierarchy of all causes, so that each record is assigned the first cause for which it meets diagnostic criteria in the hierarchy. If no cause criteria are met, the record will have an "unspecified" COD.
 
 ## Example
-Taken together, data are first converted from the WHO 2016 Verbal Autopsy Questionnaire format using odk2EAVA() and then that output file is used to generate causes of death based on the reformatted signs and symptoms and a validated hieararchy of causes.
+Taken together, data are first converted from the WHO 2016 Verbal Autopsy Questionnaire format using odk2EAVA() and then that output file is used to generate causes of death based on signs and symptoms and a hierarchy of causes.
 
 ```{r, warning = FALSE, message = FALSE, results = 'hide'}
 # load EAVA package

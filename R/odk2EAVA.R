@@ -1,10 +1,11 @@
 #' @title odk2EAVA
 #' @description Converts 2016 WHO verbal autopsy (VA) data to an input file for Expert Algorithm Verbal Autopsy cause of death assignment by the codEAVA() function
-#' @param odk A data frame frame which used open data kit (odk) to obtain 2016 WHO VA questionnaire responses
+#' @param odk A data frame which used open data kit (odk) to obtain 2016 WHO VA questionnaire responses
 #' @param id_col A unique identifier for each record within the odk data frame
 #' @returns A data frame that contains variable names and values which have been converted to openVA convention
+#' @format data_public is a subset of publicly available 2016 WHO VA Questionnaire data
+#' @source <https://comsamozambique.org/data-access>
 #' @export
-#' @usage data_public
 odk2EAVA <- function(odk, id_col) {
   # Currently CrossVA requires all i022a-i022n variables, which public data does not have - improve errors to allow data management outdside function
   names(odk) <- tolower(colnames(odk))

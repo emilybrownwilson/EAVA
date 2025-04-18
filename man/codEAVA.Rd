@@ -3,6 +3,12 @@
 \name{codEAVA}
 \alias{codEAVA}
 \title{codEAVA}
+\format{
+data_public is a subset of publicly available WHO 2016 VA Questionnaire data
+}
+\source{
+<https://comsamozambique.org/data-access>
+}
 \usage{
 codEAVA(df, age_group)
 }
