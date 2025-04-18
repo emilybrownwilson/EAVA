@@ -4,7 +4,7 @@
 \alias{odk2EAVA}
 \title{odk2EAVA}
 \usage{
-data_public is de-identified example data which is available publicly
+data_public
 }
 \arguments{
 \item{odk}{A data frame frame which used open data kit (odk) to obtain 2016 WHO VA questionnaire responses}
