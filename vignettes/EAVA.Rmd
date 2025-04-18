@@ -16,44 +16,42 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(EAVA)
-```
-
 ## Introduction 
 
-Causes of death (CODs) are not known for about two-thirds of the global population [@cejudo2023]. Verbal Autopsies (VAs) are routinely conducted questionnaires which capture community or population level causes of death in settings where civil registration and health systems are weak [@WHO2016]. Historically, causes were ascertained by physicians, who interpreted signs and symptoms reported by a decedent's caregiver or next-of-kin, and assigned a cause. In recent years, computer-coded verbal autopsy (CCVA) algorithms have been developed to conserve physician time in resource-limited settings [@InterVA; @InSilicoVA; @EAVA]. 
+Causes of death (CODs) are not known for about two-thirds of the global population [@cejudo2023]. Verbal Autopsies (VAs) are routinely conducted questionnaires which capture community or population level causes of death in settings where civil registration and health systems are weak [@WHO2016]. Historically, causes were ascertained by physicians, who interpreted signs and symptoms reported by a decedent's caregiver and assigned a cause. In recent years, computer-coded verbal autopsy (CCVA) algorithms have been developed to conserve physician time in resource-limited settings [@InterVA; @InSilicoVA; @EAVA]. This package makes available the Expert Algorithm Verbal Autopsy (EAVA) CCVA. The EAVA package consists of two functions which parallel data processing in the CrossVA and the openVA packages. 
 
-The EAVA package consists of two functions which parallel data processing and analysis of InterVA5 and InSilicoVA in the openVA package.
+### odk2EAVA
+Publicly available data from the Countrywide Mortality Surveillance for Action project website https://comsamozambique.org/data-access contains WHO 2016 Verbal Autopsy Questionnaire data, and demonstrates the odk2EAVA() function. The resulting output consists of a unique identifier and 378 signs and symptoms for evaluation and COD assignment by codEAVA().
+
+### codEAVA
+
+The output of the odk2EAVA() function becomes the input of the codEAVA() function. codEAVA() assigns causes based on the presence and absence of symptoms. Each record is evaluated and either meets or does not meet diagnostic criteria for each cause. Records are assigned a single cause based on a deterministic hierarchy of all causes, so that each record is assigned the first cause for which it meets diagnostic criteria in the hierarchy. If no cause criteria are met, the record will have an "unspecified" COD.
+
+## Example
+Taken together, data are first converted from the WHO 2016 Verbal Autopsy Questionnaire format using odk2EAVA() and then that output file is used to generate causes of death based on the reformatted signs and symptoms and a validated hieararchy of causes.
 
 ```{r, warning = FALSE, message = FALSE, results = 'hide'}
+# load EAVA package
 library(EAVA)
 library(stringi)
 library(stringr)
-```
 
-### odk2EAVA
-For demonstration purposes, we will use "data_public," which is publicly available from the Countrywide Mortality Surveillance for Action project website https://comsamozambique.org/data-access
-```{r, warning = FALSE, message = FALSE, results = 'hide'}
+# load embedded example data
 data <- as.data.frame(data_public)
-output <- odk2EAVA(data, id_col  = "comsa_id")
-```
-The resulting output will consist of a unique identifier (ID) and 378 signs and symptoms for evaluation and COD assignment by EAVA.
 
-### codEAVA
-The output of odk2EAVA becomes the input file for codEAVA. This function assigns causes based on presence and absence of symptoms. All records are evaluated for all causes. Once each record has met or not met the diagnostic criteria for each cause, records are assigned a single cause based on a deterministic hierarchy of all causes, so that each record will have the first cause for which it met the diagnostic criteria. If no cause is assigned, the record will have an "unspecified" COD.
-```{r, warning = FALSE, message = FALSE, results = 'hide'}
+# run odk2EAVA() using example data
+output <- odk2EAVA(data, id_col  = "comsa_id")
+
+# run codEAVA for neonates and children 1-to-59 months of age
 EAVA_neonate <- codEAVA(output, "neonate")
 EAVA_child <- codEAVA(output, "child")
 ```
 
 ```{r, warning = FALSE, message = FALSE}
+# check results
 head(EAVA_neonate)
 head(EAVA_child)
 ```
-
-## EXAMPLE
-
 
 ## References
 <div id="refs"></div>
