@@ -1022,8 +1022,8 @@ odk2EAVA <- function(odk, id_col) {
   eavaOut[odk[,"age"] - odk[,indexData] > 0, 2] <- "n"
   eavaOut[odk[,"age"] - odk[,indexData] < 0, 2] <- "."
   # i173b
-  indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[3]))
-  eavaOut[str_detect(tolower(odk[, indexData]), "grunting"), 3] <- "y"
+  indexData <- which(stringi::stri_endswith_fixed(odkNames, whoNames_add[3]))
+  eavaOut[stringr::str_detect(tolower(odk[, indexData]), "grunting"), 3] <- "y"
   eavaOut[!str_detect(tolower(odk[, indexData]), "grunting"), 3] <- "n"
   eavaOut[odk[, indexData] == "", 3] <- "."
   # i167c
