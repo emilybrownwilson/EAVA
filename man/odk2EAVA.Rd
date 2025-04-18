@@ -3,12 +3,6 @@
 \name{odk2EAVA}
 \alias{odk2EAVA}
 \title{odk2EAVA}
-\format{
-`data_public` is example data frame with 10 rows and 511 columns
-}
-\source{
-<https://comsamozambique.org/data-access>
-}
 \usage{
 odk2EAVA(odk, id_col)
 }
