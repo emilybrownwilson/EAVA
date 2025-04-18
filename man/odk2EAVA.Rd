@@ -4,7 +4,7 @@
 \alias{odk2EAVA}
 \title{odk2EAVA}
 \format{
-data_public is a subset of publicly available 2016 WHO VA Questionnaire data
+`data_public` is example data frame with 10 rows and 511 columns
 }
 \source{
 <https://comsamozambique.org/data-access>
@@ -22,4 +22,7 @@ A data frame that contains variable names and values which have been converted t
 }
 \description{
 Converts 2016 WHO verbal autopsy (VA) data to an input file for Expert Algorithm Verbal Autopsy cause of death assignment by the codEAVA() function
+}
+\references{
+Thomas J, Choi E, Li Z, Maire N, McCormick T, Byass P, Clark S (2021). CrossVA: Verbal Autopsy Data Transformation for InSilicoVA and InterVA5 Algorithms_. R package version 1.0.0, <https://CRAN.R-project.org/package=CrossVA>.
 }

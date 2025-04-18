@@ -3,8 +3,9 @@
 #' @param odk A data frame which used open data kit (odk) to obtain 2016 WHO VA questionnaire responses
 #' @param id_col A unique identifier for each record within the odk data frame
 #' @returns A data frame that contains variable names and values which have been converted to openVA convention
-#' @format data_public is a subset of publicly available 2016 WHO VA Questionnaire data
+#' @format `data_public` is example data frame with 10 rows and 511 columns
 #' @source <https://comsamozambique.org/data-access>
+#' @references   Thomas J, Choi E, Li Z, Maire N, McCormick T, Byass P, Clark S (2021). CrossVA: Verbal Autopsy Data Transformation for InSilicoVA and InterVA5 Algorithms_. R package version 1.0.0, <https://CRAN.R-project.org/package=CrossVA>.
 #' @export
 odk2EAVA <- function(odk, id_col) {
   # Currently CrossVA requires all i022a-i022n variables, which public data does not have - improve errors to allow data management outdside function
