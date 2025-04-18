@@ -3,7 +3,7 @@ Type: Package
 Title: Deterministic Verbal Autopsy Coding with "Expert Algorithm Verbal Autopsy"
 Version: 1.0.0
 Author: Emily Wilson, Henry Kalter, Abhi Datta, Sandipan Pramanik, Robert Black
-Authors@: c(
+Authors@R: c(
     person(
       given = "Emily", 
       family = "Wilson",
@@ -43,7 +43,6 @@ Imports:
     stringi,
     stringr
 RoxygenNote: 7.3.2
-URL: https://github.com/emilybrownwilson/EAVA.git
 BugReports: https://github.com/emilybrownwilson/EAVA/issues
 Depends: 
     R (>= 2.10)
