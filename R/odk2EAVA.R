@@ -4,6 +4,8 @@
 #' @param id_col A unique identifier for each record within the odk data frame
 #' @returns A data frame that contains variable names and values which have been converted to openVA convention
 #' @references   Thomas J, Choi E, Li Z, Maire N, McCormick T, Byass P, Clark S (2021). CrossVA: Verbal Autopsy Data Transformation for InSilicoVA and InterVA5 Algorithms_. R package version 1.0.0, <https://CRAN.R-project.org/package=CrossVA>.
+#' @importFrom stringi stri_endswith_fixed
+#' @importFrom stringr str_detect
 #' @export
 odk2EAVA <- function(odk, id_col) {
   # Currently CrossVA requires all i022a-i022n variables, which public data does not have - improve errors to allow data management outdside function
@@ -1022,8 +1024,8 @@ odk2EAVA <- function(odk, id_col) {
   eavaOut[odk[,"age"] - odk[,indexData] > 0, 2] <- "n"
   eavaOut[odk[,"age"] - odk[,indexData] < 0, 2] <- "."
   # i173b
-  indexData <- which(stringi::stri_endswith_fixed(odkNames, whoNames_add[3]))
-  eavaOut[stringr::str_detect(tolower(odk[, indexData]), "grunting"), 3] <- "y"
+  indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[3]))
+  eavaOut[str_detect(tolower(odk[, indexData]), "grunting"), 3] <- "y"
   eavaOut[!str_detect(tolower(odk[, indexData]), "grunting"), 3] <- "n"
   eavaOut[odk[, indexData] == "", 3] <- "."
   # i167c

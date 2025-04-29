@@ -5,7 +5,6 @@
 #' @returns A two-column data frame with unique identifier and cause of death
 #' @export
 codEAVA <- function(df,age_group){
-
   if(age_group=="neonate"){
     data <- df
     data$Stillbirth <- ifelse(data$i104o %in% c("n",".") & data$i109o %in% c("n",".") & data$i110o %in% c("n","."),1,0)

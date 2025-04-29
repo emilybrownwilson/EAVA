@@ -2,3 +2,5 @@
 
 export(codEAVA)
 export(odk2EAVA)
+importFrom(stringi,stri_endswith_fixed)
+importFrom(stringr,str_detect)
