@@ -1,7 +1,7 @@
 ## Resubmission
-This is the second resubmission. In this version I have:
+This is the third submission. In this version I have:
 
-* Referenced archived R package, which odk2EAVA builds upon, in description field of DESCRIPTION file
+* Referenced an archived R package, which odk2EAVA() builds upon, in description field of DESCRIPTION file
 * Removed quotes around Expert Algorithm Verbal Autopsy for consistency
 * Added small executable examples in man/...Rd files to illustrate function use and enable testing
 * Changed cat() to message() in R/odk2EAVA.R
