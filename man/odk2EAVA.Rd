@@ -17,6 +17,16 @@ A data frame that contains variable names and values which have been converted t
 \description{
 Converts 2016 WHO verbal autopsy (VA) data to an input file for Expert Algorithm Verbal Autopsy cause of death assignment by the codEAVA() function
 }
+\examples{
+{
+# load embedded example data or data from WHO 2016 Verbal Autopsy Questionnaire
+data <- as.data.frame(data_public)
+# run odk2EAVA()
+output <- odk2EAVA(data, id_col  = "comsa_id")
+# view data converted for use in codEAVA()
+head(output)
+}
+}
 \references{
 Thomas J, Choi E, Li Z, Maire N, McCormick T, Byass P, Clark S (2021). CrossVA: Verbal Autopsy Data Transformation for InSilicoVA and InterVA5 Algorithms_. R package version 1.0.0, <https://CRAN.R-project.org/package=CrossVA>.
 }

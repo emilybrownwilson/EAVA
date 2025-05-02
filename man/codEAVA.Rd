@@ -17,3 +17,16 @@ A two-column data frame with unique identifier and cause of death
 \description{
 Assigns cause of death by Verbal Autopsy Expert Algorithm
 }
+\examples{
+{
+# load embedded example data or data from WHO 2016 Verbal Autopsy Questionnaire
+data <- as.data.frame(data_public)
+# first run odk2EAVA()
+output <- odk2EAVA(data, id_col  = "comsa_id")
+# run codEAVA() for neonates and children 1-to-59 months of age
+EAVA_neonate <- codEAVA(output, "neonate")
+EAVA_child <- codEAVA(output, "child")
+head(EAVA_neonate)
+head(EAVA_child)
+}
+}

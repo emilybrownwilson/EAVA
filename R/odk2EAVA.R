@@ -3,6 +3,14 @@
 #' @param odk A data frame which used open data kit (odk) to obtain 2016 WHO VA questionnaire responses
 #' @param id_col A unique identifier for each record within the odk data frame
 #' @returns A data frame that contains variable names and values which have been converted to openVA convention
+#' @examples{
+#' # load embedded example data or data from WHO 2016 Verbal Autopsy Questionnaire
+#' data <- as.data.frame(data_public)
+#' # run odk2EAVA()
+#' output <- odk2EAVA(data, id_col  = "comsa_id")
+#' # view data converted for use in codEAVA()
+#' head(output)
+#' }
 #' @references   Thomas J, Choi E, Li Z, Maire N, McCormick T, Byass P, Clark S (2021). CrossVA: Verbal Autopsy Data Transformation for InSilicoVA and InterVA5 Algorithms_. R package version 1.0.0, <https://CRAN.R-project.org/package=CrossVA>.
 #' @importFrom stringi stri_endswith_fixed
 #' @importFrom stringr str_detect
@@ -177,7 +185,7 @@ odk2EAVA <- function(odk, id_col) {
   indexData <- apply(tmpMat, 2, which)
   warnZeroMatch <- which(sapply(indexData, length) == 0)
   if (length(warnZeroMatch) > 0) {
-    cat(paste("Expecting indicator(s) with name(s): ", whoNames[unique(warnZeroMatch)],
+    message(paste("Expecting indicator(s) with name(s): ", whoNames[unique(warnZeroMatch)],
               sep = ""), sep = "\n")
     stop("Problem with data: please add above columns to your data frame")
   }
@@ -199,7 +207,7 @@ odk2EAVA <- function(odk, id_col) {
   if (is.list(indexData)) {
     dups <- lapply(indexData, function(x) length(x) > 1)
     tmpNames <- whoNames[qYesNo]
-    cat(paste("Duplicate column names containing:", tmpNames[unlist(dups)],
+    message(paste("Duplicate column names containing:", tmpNames[unlist(dups)],
               sep = " "), sep = "\n")
     stop("Problem with data: please remove or rename one of the duplicate columns.")
   }
@@ -953,18 +961,18 @@ odk2EAVA <- function(odk, id_col) {
   if (numNA > 0) {
     warning("Found unexpected input values (coded as missing)",
             call. = FALSE)
-    cat("Unexpected values found in: ", sep = "\n")
-    cat(paste(indexNA), sep = ", ")
-    cat("\n")
+    message("Unexpected values found in: ", sep = "\n")
+    message(paste(indexNA), sep = ", ")
+    message("\n")
   }
   numNA <- colSums(is.na(iv5Out))
   indexNA <- which(numNA > 0)
   if (length(indexNA) > 0) {
     warning("NA's included in output", call. = FALSE)
-    cat(paste("odk2openVA produced NA's in the following columns",
+    message(paste("odk2openVA produced NA's in the following columns",
               " (this may cause errors with openVA)", sep = ""),
         sep = "\n")
-    cat(paste(iv5Names[indexNA], " Probably associated with WHO column containing: ",
+    message(paste(iv5Names[indexNA], " Probably associated with WHO column containing: ",
               whoNames[indexNA], sep = ""), sep = "\n")
   }
   indexID <- which(stri_endswith_fixed(odkNames, id_col))

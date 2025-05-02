@@ -3,6 +3,18 @@
 #' @param df A data frame with 2016 WHO VA responses in openVA input format
 #' @param age_group Age group input, either "neonate" or "child"
 #' @returns A two-column data frame with unique identifier and cause of death
+#' @examples{
+#' # load embedded example data or data from WHO 2016 Verbal Autopsy Questionnaire
+#' data <- as.data.frame(data_public)
+#' # first run odk2EAVA()
+#' output <- odk2EAVA(data, id_col  = "comsa_id")
+#' # run codEAVA() for neonates and children 1-to-59 months of age
+#' EAVA_neonate <- codEAVA(output, "neonate")
+#' EAVA_child <- codEAVA(output, "child")
+# # check cause of death outputs
+#' head(EAVA_neonate)
+#' head(EAVA_child)
+#' }
 #' @export
 codEAVA <- function(df,age_group){
   if(age_group=="neonate"){

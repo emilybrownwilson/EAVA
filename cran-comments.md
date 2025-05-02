@@ -1,5 +1,12 @@
 ## Resubmission
-This is a resubmission. In this version I have:
+This is the second resubmission. In this version I have:
+
+* Referenced archived R package, which odk2EAVA builds upon, in description field of DESCRIPTION file
+* Removed quotes around Expert Algorithm Verbal Autopsy for consistency
+* Added small executable examples in man/...Rd files to illustrate function use and enable testing
+* Changed cat() to message() in R/odk2EAVA.R
+
+## Changes in the previous resubmission
 
 * Removed Author field that differed from Authors@R 
 * Added imports to NAMESPACE
@@ -10,3 +17,4 @@ This is a resubmission. In this version I have:
 0 errors | 0 warnings | 0 note
 
 * This is a new release.
+
