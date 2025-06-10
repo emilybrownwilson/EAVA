@@ -102,17 +102,17 @@ for the Countrywide Mortality Surveillance for Action project.
 \pagebreak
 
 ![](figs/neonate2.png)
-\pagebreak
+
 
 # Appendix 2: deterministic hierarchical algorithm to reach a single cause of death in children 1-to-59-months-of-age
-![](figs/child1.png)
+![](figs/child1.png){width=80%}
 \pagebreak
 
 ![](figs/child2.png)
 \pagebreak
 
 ![](figs/child3.png)
-
+\pagebreak
 
 # References
 
