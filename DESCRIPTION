@@ -1,6 +1,6 @@
 Package: EAVA
 Type: Package
-Title: Deterministic Verbal Autopsy Coding with Expert Algorithm Verbal Autopsy
+Title: Deterministic Verbal Autopsy Coding with Verbal Autopsy Expert Algorithm
 Version: 1.0.0
 Authors@R: c(
     person(

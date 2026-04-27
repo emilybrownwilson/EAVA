@@ -1,0 +1,2 @@
+load("/Users/EWilson/Desktop/EAVA/data/data_public.rda")
+head(data_public)

@@ -186,7 +186,7 @@ odk2EAVA <- function(odk, id_col) {
   warnZeroMatch <- which(sapply(indexData, length) == 0)
   if (length(warnZeroMatch) > 0) {
     message(paste("Expecting indicator(s) with name(s): ", whoNames[unique(warnZeroMatch)],
-              sep = ""), sep = "\n")
+                  sep = ""), sep = "\n")
     stop("Problem with data: please add above columns to your data frame")
   }
   numNA <- 0
@@ -208,7 +208,7 @@ odk2EAVA <- function(odk, id_col) {
     dups <- lapply(indexData, function(x) length(x) > 1)
     tmpNames <- whoNames[qYesNo]
     message(paste("Duplicate column names containing:", tmpNames[unlist(dups)],
-              sep = " "), sep = "\n")
+                  sep = " "), sep = "\n")
     stop("Problem with data: please remove or rename one of the duplicate columns.")
   }
   iv5Out[, qYesNo] <- as.matrix(odk[, indexData])
@@ -454,6 +454,7 @@ odk2EAVA <- function(odk, id_col) {
   indexData <- which(stri_endswith_fixed(odkNames, whoNames[41]))
   iv5Out[odk[, indexData] > 5, 41] <- "y"
   iv5Out[odk[, indexData] <= 5, 41] <- "n"
+  iv5Out[odk[, indexData] == 98, 41] <- "n"
   iv5Out[odk[, indexData] == 99, 41] <- "n"
   iv5Out[odk[, indexData] == 88, 41] <- "n"
   indexData <- which(stri_endswith_fixed(odkNames, whoNames[43]))
@@ -970,12 +971,13 @@ odk2EAVA <- function(odk, id_col) {
   if (length(indexNA) > 0) {
     warning("NA's included in output", call. = FALSE)
     message(paste("odk2openVA produced NA's in the following columns",
-              " (this may cause errors with openVA)", sep = ""),
-        sep = "\n")
+                  " (this may cause errors with openVA)", sep = ""),
+            sep = "\n")
     message(paste(iv5Names[indexNA], " Probably associated with WHO column containing: ",
-              whoNames[indexNA], sep = ""), sep = "\n")
+                  whoNames[indexNA], sep = ""), sep = "\n")
   }
-  indexID <- which(stri_endswith_fixed(odkNames, id_col))
+  # indexID <- which(stri_endswith_fixed(odkNames, id_col))
+  indexID <- which(stri_endswith_fixed(odkNames, tolower(id_col)))
   # indexID <- odkNames[4]
   if (length(indexID)) {
     iv5Out <- cbind(as.character(odk[, indexID]), iv5Out)
@@ -1013,11 +1015,11 @@ odk2EAVA <- function(odk, id_col) {
 
   odkNames <- tolower(names(odk))
   whoNames_add <- c("Id10183","Id10167","Id10173","Id10161","Id10250","Id10120","Id10182","Id10148","Id10234",
-                    "Id10126","Id10446","Id10151","Id10154")
+                    "Id10126","Id10446","Id10151","Id10154","Id10184_b")
   whoNames_add <- tolower(whoNames_add)
   eavaNames <- c("i183b","fb_day0","i173b","i167c","i161b","i250b","i120c","i182d","i148d","i234c",
-                 "i126o","i446o","i183c","i182e","i151b","i148e","i234d","i173b","i154c","i154d","i173c",
-                 "i167d","i120d")
+                 "i126o","i446o","i183c","i184b","i151b","i148e","i234d","i154c","i173c","i154d","i173d",
+                 "i167d","i120d","swell_duration")
   eavaOut <- matrix(".", nrow = nrow(odk), ncol = length(eavaNames))
 
   # i183b
@@ -1046,14 +1048,18 @@ odk2EAVA <- function(odk, id_col) {
   eavaOut[odk[, indexData] > 0, 5] <- "y"
   eavaOut[odk[, indexData] == 0, 5] <- "n"
   eavaOut[is.na(odk[, indexData]), 5] <- "."
+
   # i250b
-  indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[5]))
-  eavaOut[, 5] <- odk[, indexData]
-  eavaOut[is.na(odk[, indexData]), 6] <- "."
+  idx_250b <- which(stri_endswith_fixed(odkNames, whoNames_add[5]))
   # i120c
-  indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[6]))
-  eavaOut[, 7] <- odk[, indexData]
-  eavaOut[is.na(odk[, indexData]), 7] <- "."
+  idx_120c <- which(stri_endswith_fixed(odkNames, whoNames_add[6]))
+  # swell_duration
+  eavaOut[, 6] <- odk[,idx_250b]
+  eavaOut[, 7] <- odk[,idx_120c]
+  eavaOut[odk[,idx_250b] >= odk[,idx_120c], 24] <- "y"
+  eavaOut[odk[,idx_250b] < odk[,idx_120c], 24] <- "n"
+  eavaOut[is.na(odk[,idx_250b]) | is.na(odk[,idx_120c]), 24] <- "."
+
   # i182d
   indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[7]))
   eavaOut[odk[, indexData] > 30, 8] <- "y"
@@ -1068,6 +1074,8 @@ odk2EAVA <- function(odk, id_col) {
   indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[9]))
   eavaOut[odk[, indexData] > 30, 10] <- "y"
   eavaOut[odk[, indexData] <=30, 10] <- "n"
+  eavaOut[odk[, indexData] == 99, 10] <- "."
+  eavaOut[odk[, indexData] == 88, 10] <- "."
   eavaOut[is.na(odk[, indexData]), 10] <- "."
   # # i126o
   indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[10]))
@@ -1077,15 +1085,17 @@ odk2EAVA <- function(odk, id_col) {
   eavaOut[, 12] <- odk[, indexData]
   # i183c
   indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[1]))
-  eavaOut[odk[, indexData] > 5, 13] <- "y"
-  eavaOut[odk[, indexData] <= 5, 13] <- "n"
+  eavaOut[odk[, indexData] > 4, 13] <- "y"
+  eavaOut[odk[, indexData] <= 4, 13] <- "n"
   eavaOut[odk[, indexData] == 99, 13] <- "."
   eavaOut[odk[, indexData] == 88, 13] <- "."
-  # i182d
-  indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[7]))
+  # i184b
+  indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[14]))
   eavaOut[odk[, indexData] > 14, 14] <- "y"
   eavaOut[odk[, indexData] <= 14, 14] <- "n"
-  eavaOut[is.na(odk[, indexData]), 14] <- "."
+  eavaOut[odk[, indexData] == 99, 14] <- "."
+  eavaOut[odk[, indexData] == 88, 14] <- "."
+  eavaOut[is.na(odk[, indexData]), 10] <- "."
   # i151b
   indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[12]))
   eavaOut[str_detect(tolower(odk[, indexData]), "on_and_off"), 15] <- "y"
@@ -1101,13 +1111,15 @@ odk2EAVA <- function(odk, id_col) {
   indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[9]))
   eavaOut[odk[, indexData] > 2, 17] <- "y"
   eavaOut[odk[, indexData] <=2, 17] <- "n"
+  eavaOut[odk[, indexData] == 99, 17] <- "."
+  eavaOut[odk[, indexData] == 88, 17] <- "."
   eavaOut[is.na(odk[, indexData]), 17] <- "."
   # i154c
   indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[13]))
   eavaOut[odk[, indexData] > 14, 18] <- "y"
   eavaOut[odk[, indexData] <=14, 18] <- "n"
   eavaOut[is.na(odk[, indexData]), 18] <- "."
-  # i173b
+  # i173c
   indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[3]))
   eavaOut[str_detect(tolower(odk[, indexData]), "stridor"), 19] <- "y"
   eavaOut[!str_detect(tolower(odk[, indexData]), "stridor"), 19] <- "n"
@@ -1118,7 +1130,7 @@ odk2EAVA <- function(odk, id_col) {
   eavaOut[odk[, indexData] > 2, 20] <- "y"
   eavaOut[odk[, indexData] <=2, 20] <- "n"
   eavaOut[is.na(odk[, indexData]), 20] <- "."
-  # i173c
+  # i173d
   indexData <- which(stri_endswith_fixed(odkNames, whoNames_add[3]))
   eavaOut[str_detect(tolower(odk[, indexData]), "stridor"), 21] <- "y"
   eavaOut[str_detect(tolower(odk[, indexData]), "grunting"), 21] <- "y"

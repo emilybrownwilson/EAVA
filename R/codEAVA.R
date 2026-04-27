@@ -19,14 +19,15 @@
 codEAVA <- function(df,age_group){
   if(age_group=="neonate"){
     data <- df
-    data$Stillbirth <- ifelse(data$i104o %in% c("n",".") & data$i109o %in% c("n",".") & data$i110o %in% c("n","."),1,0)
+    # data$Stillbirth <- ifelse(data$i104o %in% c("n",".") & data$i109o %in% c("n",".") & data$i110o %in% c("n","."),1,0)
+    data$Stillbirth <- ifelse(data$i104o %in% c("n") & data$i109o %in% c("n") & data$i110o %in% c("n"),1,0)
     data <- data[data$Stillbirth!=1,]
 
     data <- subset(data, age <28)
     dim(data)
 
     ## |++| neonatal tetanus1 |++|
-    data$nnt1 <- ifelse((data$age > 2 & data$age < 27) & data$i219o == "y" & ((data$i271o == "y" & data$i273o == "y") | (data$i106a == "y" & data$i107o == "y")),1,2)
+    data$nnt1 <- ifelse((data$age > 2 & data$age < 27) & data$i219o == "y" & ((data$i271o == "y" & data$i273o == "y") | (data$i106a == "n" & data$i107o == "y")),1,2)
     table(data$nnt1, exclude = NULL)
 
     ## | + congenital malformation2 + |
@@ -58,7 +59,7 @@ codEAVA <- function(df,age_group){
     table(data$meningitis451_nonnt1, exclude = NULL)
 
     # * |++| diarrhea8 |++| (for NNs: acute diarrhea with >4 stools on worst day);
-    data$diarrhea8 <- ifelse(data$i181o == "y" & data$i183b=="y", 1,2)
+    data$diarrhea8 <- ifelse(data$i181o == "y" & data$i183b == "y", 1,2)
     table(data$diarrhea8, exclude = NULL)
 
     # * |++| pneumonia157 |++|;
@@ -70,7 +71,7 @@ codEAVA <- function(df,age_group){
 
     data$pneumo157signs <- data$pneumo157sign2 + data$pneumo157sign3 + data$pneumo157sign5
 
-    data$pneumonia157 <- ifelse((data$i166o == "y" & data$i167c == "y") | data$i159o %in% "y" & data$i161b == "y" & data$pneumo157signs>1, 1, 2)
+    data$pneumonia157 <- ifelse((data$i166o == "y" & data$i167c == "y" | data$i159o %in% "y" & data$i161b == "y") & data$pneumo157signs>1, 1, 2)
     table(data$pneumonia157, exclude = NULL)
 
     # * |++| sepsisfvr |++|;
@@ -96,6 +97,10 @@ codEAVA <- function(df,age_group){
     # * |++| sepsisfvr2_2 without neonatal tetanus |++|;
     data$sepsisfvr2_2_nonnt1 <- ifelse(data$sepsisfvr2_2 == 1 & data$nnt1 == 2, 1, 2)
     table(data$sepsisfvr2_2_nonnt1, exclude = NULL)
+
+    # * |++| possible diarrhea |++|;
+    data$possiblediar8_8 <- ifelse(data$i181o %in% "y" & data$sepsisfvr2_2 %in% 1 & data$diarrhea8 %in% 2, 1,2)
+    table(data$possiblediar8_8, exclude = NULL)
 
     # * |++| possible pneumonia |++|;
     data$possiblepneumonia9 <- ifelse(data$i159o == "y" & data$sepsisfvr2_2 == 1 & data$pneumonia157 == 2, 1, 2)
@@ -146,7 +151,7 @@ codEAVA <- function(df,age_group){
     table(data$malnutrition1, exclude = NULL)
 
     # * |++| Malnutrition2 |++|; (modified algorithm: when SA data on the order of symptoms appearance are not available);
-    data$malnutrition2 <- ifelse(data$i249o == "y" & data$i250b >= data$i120c,1,2)
+    data$malnutrition2 <- ifelse(data$i249o == "y" & data$swell_duration == "y",1,2)
     table(data$malnutrition2, exclude = NULL)
 
     # * |++| AIDS5 |++|
@@ -179,12 +184,12 @@ codEAVA <- function(df,age_group){
 
     # * |++| Diarrhea8 |++| (acute diarrhea with >4 stools on worst day, or diarrhea >14 days [both without blood]);
     data$diarrhea8 <- ifelse((data$i181o == "y" & data$i183c == "y" & data$i186o == "n") |
-                               (data$i181o == "y" & data$i182e == "y" & data$i186o == "n"),1,2)
+                               (data$i181o == "y" & data$i184b == "y" & data$i186o == "n"),1,2)
     table(data$diarrhea8, exclude=NULL)
 
     # * |++| Dysentery8 |++| (bloody diarrhea with >4 stools on worst day, or bloody diarrhea >14 days);
     data$dysentery8 <- ifelse((data$i181o == "y" & data$i183c == "y" & data$i186o == "y") |
-                                (data$i181o == "y" & data$i182e == "y" & data$i186o == "y"), 1,2)
+                                (data$i181o == "y" & data$i184b == "y" & data$i186o == "y"), 1,2)
     table(data$dysentery8, exclude=NULL)
 
     # * |++| Diarrhea8 OR Dysentery8 |++|
@@ -208,13 +213,13 @@ codEAVA <- function(df,age_group){
     table(data$hemfever, exclude=NULL)
 
     # * |++| Malaria251 |++|;
-    data$malaria251 <- ifelse((data$i147o == "y" & data$i149o %in% "yes" & data$i151b == "y" & data$i208o == "n" & ((data$age<365.25 & data$i278o %in% "n") | data$age>=365.25) & (data$i268o %in% "y" | data$i159o %in% "y" | data$i219o %in% "y" | data$i218o %in% "y")) |
+    data$malaria251 <- ifelse((data$i147o == "y" & data$i149o %in% "y" & data$i151b == "y" & data$i208o == "n" & ((data$age<365.25 & data$i278o %in% "n") | data$age>=365.25) & (data$i268o %in% "y" | data$i159o %in% "y" | data$i219o %in% "y" | data$i218o %in% "y")) |
                                 (data$i147o %in% c("y") & data$i149o %in% c("y") & data$i150a %in% "y" & data$i208o %in% "n" & ((data$age<365.25 & data$i278o %in% "n") | data$age>=365.25) & (data$i268o %in% "y" | data$i219o %in% "y" | data$i218o %in% "y")), 1,2)
     table(data$malaria251, exclude = NULL)
 
     # * Measles4;
     data$measles4 <- ifelse(data$age>=120 & (data$i147o == "y" & data$i148e == "y") &
-                              (data$i233o == "y" & data$i234d>2) & (data$i235a == "y" | data$i235d == "y"), 1, 2)
+                              (data$i233o == "y" & data$i234d == "y") & (data$i235a == "y" | data$i235d == "y"), 1, 2)
     table(data$measles4, exclude=NULL)
 
     # * Meningitis/encephalitis;
@@ -222,16 +227,16 @@ codEAVA <- function(df,age_group){
     table(data$meningitis, exclude=NULL)
 
     # * |++| Pertussis |++|;
-    data$pertussis <- ifelse((data$i153o == "y" & data$i154c == "y") & (data$i156o == "y" | data$i158o == "y" | data$i173b == "y"), 1,2)
+    data$pertussis <- ifelse((data$i153o == "y" & data$i154c == "y") & (data$i156o == "y" | data$i158o == "y" | data$i173c == "y"), 1,2)
     table(data$pertussis, exclude=NULL)
 
     # * |++| VA_pneumoniafb2daysgr |++|;
-    data$pneumoniafb2daysgr <- ifelse(((data$i153o %in% "y" & data$i154d == "y") | (data$i159o %in% "y" & data$i161a == "y")) & ((data$i166o %in% "y" & data$i167d == "y") | data$i172o == "y" | data$i173c == "y"), 1,2)
+    data$pneumoniafb2daysgr <- ifelse(((data$i153o %in% "y" & data$i154d == "y") | (data$i159o %in% "y" & data$i161a == "y")) & ((data$i166o %in% "y" & data$i167d == "y") | data$i172o == "y" | data$i173b == "y"), 1,2)
     table(data$pneumoniafb2daysgr, exclude = NULL)
 
     # * |++| possibleari3 |++|;
-    data$possibleari3 <- ifelse((data$i153o %in% "y" | data$i159o %in% "y" | (data$i166o %in% "y" & (data$i172o %in% "y" | data$i173c %in% "y"))) &
-                                  (data$i156o %in% "y" | data$i166o %in% "y" | data$i172o %in% "y" | data$i173c %in% "y" |
+    data$possibleari3 <- ifelse((data$i153o %in% "y" | data$i159o %in% "y" | (data$i166o %in% "y" & (data$i172o %in% "y" | data$i173d %in% "y"))) &
+                                  (data$i156o %in% "y" | data$i166o %in% "y" | data$i172o %in% "y" | data$i173d %in% "y" |
                                      data$i147o %in% "y" | data$i219o %in% "y" | data$i218o %in% "yes") & data$pertussis %in% 2 & data$pneumoniafb2daysgr %in% 2, 1,2)
     table(data$possibleari3, exclude=NULL)
 
@@ -276,7 +281,7 @@ codEAVA <- function(df,age_group){
     table(data$ba5, exclude = NULL)
 
     # * |++| preterm_all (in months) |++|;
-    data$preterm_all_mo <- ifelse((data$i367b %in% "y" & data$i166o %in% "y" & data$fb_day0 == "y" & data$i147o %in% "n" & data$i284o %in% "n") | data$i367c %in% "y", 1, 2)
+    data$preterm_all_mo <- ifelse(data$age < 4*30.4 & ((data$i367b %in% "y" & data$i166o %in% "y" & data$fb_day0 == "y" & data$i147o %in% "n" & data$i284o %in% "n") | data$i367c %in% "y"), 1, 2)
     table(data$preterm_all_mo, exclude = NULL)
 
     # Children 1-59m Hieararcy
