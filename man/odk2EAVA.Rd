@@ -26,6 +26,8 @@ output <- odk2EAVA(data, id_col  = "comsa_id")
 # view data converted for use in codEAVA()
 head(output)
 }
+# Adapted from odk2openVA_v151() in the CrossVA package
+# Source: https://github.com/cran/CrossVA
 }
 \references{
 Thomas J, Choi E, Li Z, Maire N, McCormick T, Byass P, Clark S (2021). CrossVA: Verbal Autopsy Data Transformation for InSilicoVA and InterVA5 Algorithms_. R package version 1.0.0, <https://CRAN.R-project.org/package=CrossVA>.
