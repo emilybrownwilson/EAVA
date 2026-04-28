@@ -1,8 +1,8 @@
-#' Example WHO 2016 Verbal Autopsy Dataset from the Countrywide Mortality Surveillance for Action (COMSA) project in Mozambique
+#' Example 2016 WHO Verbal Autopsy Dataset from the Countrywide Mortality Surveillance for Action (COMSA) project in Mozambique
 #'
 #' This dataset contains a subset of individual-level responses to the 2016 WHO Verbal Autopsy Instrument as implemented in the
 #' Countrywide Mortality Surveillance for Action (COMSA) project in Mozambique.
-#' @format `data_public` is example data frame with 10 rows and 511 columns comprising verbal autopsy questionnaire modules
+#' @format `data_public` is an example data frame with 10 rows and 511 columns comprising verbal autopsy questionnaire modules
 #' \describe{
 #'   \item{IDs, geolocation, weighting}{comsa_id-adj_wt2007}
 #'   \item{indetifiers of respondent and interviewer}{Id10007-Id10011}

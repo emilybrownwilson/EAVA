@@ -7,9 +7,9 @@
 #'
 #' openVA variables are derived from the 2016 WHO VA instrument using Peter Byass's InterVA-5 user guide.
 #' Further details on the coding and underlying methodology are available from
-#' http://www.byass.uk/interva/products.htm
-#' Example variable mapping between openVA variable names and their original questionnaire
-#' item is shown below. See ccva_codebook for comprehensive mapping:
+#' http://www.byass.uk/interva/products.html
+#' Example codebook mapping between openVA variable names and their original questionnaire
+#' question is shown below. See ccva_codebook for comprehensive mapping:
 #' \describe{
 #'   \item{i004a}{Did the death occur during the wet season?}
 #'   \item{i004b}{Did the death occur during the dry season?}
@@ -20,7 +20,7 @@
 #'   \item{i363o}{Low birth weight (<2.5 kg)}
 #' }
 #' Variables ending in 'o' are coded as binary indicators (1 = yes, 0 = no, NA = missing),
-#' Variables ending in 'a' are non-standard
+#' Variables ending in 'a' are non-binary indicators such as symptom duration in days or weeks
 
 #' @examples{
 #' # load embedded example data or data from WHO 2016 Verbal Autopsy Questionnaire

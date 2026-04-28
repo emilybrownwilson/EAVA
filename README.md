@@ -8,8 +8,10 @@ Verbal Autopsy Expert Algorithm is a computer-coded verbal autopsy
 algorithm (CCVA) which assigns causes of death using responses obtained
 from the 2016 World Health Organization Verbal Autopsy Questionnaire.
 Historically, causes of death have been assigned by physician coding of
-questionnaire responses. As CCVAs become more widely used, physician
-time can be reallocated to other priorities in low resources settings.
+questionnaire responses. CCVAs offer several advantages, providing
+reliable, reproducible cause of death determination and as well as
+enabling physicians to address other priorities in low resources
+settings.
 
 ## Installation
 
@@ -23,7 +25,8 @@ pak::pak("emilybrownwilson/EAVA")
 
 ## Example
 
-This is a basic example which shows you how to use the package:
+This is a basic example which shows you how to load the packag and run
+the functions:
 
 ``` r
 # load EAVA package
@@ -55,4 +58,36 @@ head(EAVA_child)
 #> 6   434        Other infections
 #> 7  4168                 Malaria
 #> 8  5983 Meningitis/Encephalitis
+```
+
+# Codebook
+
+The signs and symptoms which EAVA uses to determine causes of death are
+presented in the codebook
+
+``` r
+# expolore symtptoms and function mapping
+data(ccva_codebook)
+
+# View first few mappings
+head(ccva_codebook)
+#>   who2016_var                                  question openVA_var
+#> 1     id10004      Did s(he) die during the wet season?      i004a
+#> 2     id10004      Did s(he) die during the dry season?      i004b
+#> 3     id10019                              Was he male?      i019a
+#> 4     id10019                           Was she female?      i019b
+#> 5     id10022 Was s(he) aged 65 years or more at death?      i022a
+#> 6     id10022   Was s(he) aged 50 to 64 years at death?      i022b
+
+# Look up a specific openVA variable
+subset(ccva_codebook, openVA_var == "i147o")
+#>    who2016_var                                               question
+#> 74     id10147 During the illness that led to death, did (s)he have a
+#>    openVA_var
+#> 74      i147o
+
+# Trace a WHO variable to openVA variables
+subset(ccva_codebook, who2016_var == "Id10147")
+#> [1] who2016_var question    openVA_var 
+#> <0 rows> (or 0-length row.names)
 ```

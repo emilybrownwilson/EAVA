@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # EAVA
 
-Verbal Autopsy Expert Algorithm is a computer-coded verbal autopsy algorithm (CCVA) which assigns causes of death using responses obtained from the 2016 World Health Organization Verbal Autopsy Questionnaire. Historically, causes of death have been assigned by physician coding of questionnaire responses. As CCVAs become more widely used, physician time can be reallocated to other priorities in low resources settings.
+Verbal Autopsy Expert Algorithm is a computer-coded verbal autopsy algorithm (CCVA) which assigns causes of death using responses obtained from the 2016 World Health Organization Verbal Autopsy Questionnaire. Historically, causes of death have been assigned by physician coding of questionnaire responses. CCVAs offer several advantages, providing reliable, reproducible cause of death determination and as well as enabling physicians to address other priorities in low resources settings.
 
 ## Installation
 
@@ -29,7 +29,7 @@ pak::pak("emilybrownwilson/EAVA")
 
 ## Example
 
-This is a basic example which shows you how to use the package:
+This is a basic example which shows you how to load the packag and run the functions:
 
 ```{r, warning = FALSE, message = FALSE, results = 'hide'}
 # load EAVA package
@@ -51,3 +51,23 @@ EAVA_child <- codEAVA(output, "child")
 head(EAVA_neonate)
 head(EAVA_child)
 ```
+
+# Codebook
+
+The signs and symptoms which EAVA uses to determine causes of death are presented in the codebook
+
+```{r, warning = FALSE, message = FALSE}
+# expolore symtptoms and function mapping
+data(ccva_codebook)
+
+# View first few mappings
+head(ccva_codebook)
+
+# Look up a specific openVA variable
+subset(ccva_codebook, openVA_var == "i147o")
+
+# Trace a WHO variable to openVA variables
+subset(ccva_codebook, who2016_var == "Id10147")
+```
+
+
