@@ -2,7 +2,26 @@
 #' @description Converts 2016 WHO verbal autopsy (VA) data to an input file for Expert Algorithm Verbal Autopsy cause of death assignment by the codEAVA() function
 #' @param odk A data frame which used open data kit (odk) to obtain 2016 WHO VA questionnaire responses
 #' @param id_col A unique identifier for each record within the odk data frame
-#' @returns A data frame that contains variable names and values which have been converted to openVA convention
+#' @return A data frame in openVA format, where each row is a death, and each column corresponds to a
+#' standardized openVA symptom or attribute variable as defined in ccva_codebook
+#'
+#' openVA variables are derived from the 2016 WHO VA instrument using Peter Byass's InterVA-5 user guide.
+#' Further details on the coding and underlying methodology are available from
+#' http://www.byass.uk/interva/products.htm
+#' Example variable mapping between openVA variable names and their original questionnaire
+#' item is shown below. See ccva_codebook for comprehensive mapping:
+#' \describe{
+#'   \item{i004a}{Did the death occur during the wet season?}
+#'   \item{i004b}{Did the death occur during the dry season?}
+#'   \item{i019a}{Male sex indicator}
+#'   \item{i019b}{Female sex indicator}
+#'   \item{i174o}{Chest pain}
+#'   \item{i181o}{Diarrhoea}
+#'   \item{i363o}{Low birth weight (<2.5 kg)}
+#' }
+#' Variables ending in 'o' are coded as binary indicators (1 = yes, 0 = no, NA = missing),
+#' Variables ending in 'a' are non-standard
+
 #' @examples{
 #' # load embedded example data or data from WHO 2016 Verbal Autopsy Questionnaire
 #' data <- as.data.frame(data_public)

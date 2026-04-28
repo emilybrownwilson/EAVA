@@ -6,6 +6,7 @@
 * Add CONTRIBUTING.md
 * Add README.md
 * Harmonize version changes in NEWS.md
+* Add more input file information for odk2EAVA and data/ccva_codebook.rda 
 
 # EAVA 1.0.0
 * Initial CRAN submission.

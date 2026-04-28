@@ -44,7 +44,7 @@ Imports:
 RoxygenNote: 7.3.3
 BugReports: https://github.com/emilybrownwilson/EAVA/issues
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5)
 Suggests: 
     knitr,
     rmarkdown,

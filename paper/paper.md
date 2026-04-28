@@ -92,7 +92,7 @@ causes of death of neonates 0-27 days (Appendix 1) and children aged 1-to-59-mon
 
 # Acknowledgements
 
-This work was supported by The Gates Foundation Grant INV-03484. We would like to thank the families who participated in VA interviews 
+This work was supported by The Gates Foundation Grant INV-034842. We would like to thank the families who participated in VA interviews 
 for the Countrywide Mortality Surveillance for Action project. 
 
 \pagebreak
