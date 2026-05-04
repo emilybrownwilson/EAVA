@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # EAVA
 
-Verbal Autopsy Expert Algorithm is a computer-coded verbal autopsy algorithm (CCVA) which assigns causes of death using responses obtained from the 2016 World Health Organization Verbal Autopsy Questionnaire. Historically, causes of death have been assigned by physician coding of questionnaire responses. CCVAs offer several advantages, providing reliable, reproducible cause of death determination and as well as enabling physicians to address other priorities in low resources settings.
+Verbal Autopsy Expert Algorithm (EAVA) is a computer-coded verbal autopsy algorithm (CCVA) which evaluates signs and symptoms present at the time of death and reported in the 2016 WHO Verbal Autopsy Questionnaire. If a decedent meets the diagnostic criteria for more than one cause, a single cause of death is determined using an age-specific hierarchy of causes. Historically, causes of death have been assigned by physician coding of questionnaire responses. EAVA produces timely, reproducible cause of death assignments, enabling physicians to address other priorities in low resource settings.
 
 ## Installation
 
@@ -27,9 +27,34 @@ You can install the development version of EAVA from [GitHub](https://github.com
 pak::pak("emilybrownwilson/EAVA")
 ```
 
-## Example
+Or load the package after installing from CRAN:
+```{r}
+# load EAVA package
+#install.packages("EAVA")
+library(EAVA)
+```
 
-This is a basic example which shows you how to load the packag and run the functions:
+# Codebook
+
+ccva_codebook maps 2016 WHO VA questionnaire questions and their corresponding names to openVA variables. 
+
+```{r, warning = FALSE, message = FALSE}
+# expolore symtptoms and function mapping
+data(ccva_codebook)
+
+# View first few mappings
+head(ccva_codebook)
+
+# Look up a specific openVA variable
+subset(ccva_codebook, openVA_var == "i147o")
+
+# Trace a WHO variable to openVA variables
+subset(ccva_codebook, who2016_var == "id10147")
+```
+
+## EAVA Example
+
+This is a basic example which shows you how to load the EAVA package and run the functions. odk2EAVA() converts 2016 WHO VA questionnaire variable names and responses to formatting conventions used for openVA. codEAVA() assign CoDs by EAVA for neonates and children 1-59 months of age.
 
 ```{r, warning = FALSE, message = FALSE, results = 'hide'}
 # load EAVA package
@@ -52,22 +77,6 @@ head(EAVA_neonate)
 head(EAVA_child)
 ```
 
-# Codebook
 
-The signs and symptoms which EAVA uses to determine causes of death are presented in the codebook
-
-```{r, warning = FALSE, message = FALSE}
-# expolore symtptoms and function mapping
-data(ccva_codebook)
-
-# View first few mappings
-head(ccva_codebook)
-
-# Look up a specific openVA variable
-subset(ccva_codebook, openVA_var == "i147o")
-
-# Trace a WHO variable to openVA variables
-subset(ccva_codebook, who2016_var == "Id10147")
-```
 
 

@@ -51,23 +51,23 @@ ccva_codebook_1 <- raw %>%
                  "i167d","i120d")
 
   eavaQs <- c("Did the baby or child have more than 4 stools on the day that loose liquid stools were most frequent?", #i183b
-            "Fast breathing starting on day 0",            #fb_day0
+            "Did fast breathing start on day 0?",            #fb_day0
             "Did his/her breathing sound like grunting?",  #i173b
-            "Fast breathing lasting 1 day or more",        #i167c
-            "Difficult breathing lasting 1 day or more",   #i161b
-            "Swelling duration greater than or equal to illness duration", #swelll_duration
-            "Liquid stools lasting more than 30 days",      #i182d
-            "Fever lasting more than 30 days",              #i148d
-            "Skin rash lasting more than 30 days",          #i234c
+            "Did fast breathing last 1 day or more?",        #i167c
+            "Did difficult breathing last 1 day or more?",   #i161b
+            "Was swelling duration greater than or equal to illness duration?", #swelll_duration
+            "Did liquid stools last more than 30 days",      #i182d
+            "Did fever last more than 30 days",              #i148d
+            "Did skin rash last more than 30 days",          #i234c
             "Was an HIV test ever positive?",               #i126o
             "Has the (biological) mother ever been told she had HIV/AIDS by a health worker?", #i446o
             "Did the frequent loose or liquid stools start more than 14 days before death?", #i184b
             "Was the pattern of fever on and off?", #i151b
-            "Did the fever last at more than 2 days?", #i148e
+            "Did the fever last more than 2 days?", #i148e
             "Did the rash last for more than 2 days", #i234d
             "Did the cough last more than 2 weeks before death?", #i154c
             "Did his/her breathing sound like stridor?", #i173c
-            "Did the cough last for more than 2 weeks before death?", #i154d
+            "Did the cough last more than 2 weeks before death?", #i154d
             "Did his/her breathing sound like stridor, grunting or wheezing?", #i173d
             "Did the fast breathing last for more than 2 days before death?", #i167d
             "Did the final illness last 1 day or less?"  #i120d
