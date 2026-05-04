@@ -33,8 +33,6 @@ Taken together, data are first converted from the WHO 2016 Verbal Autopsy Questi
 ```{r, warning = FALSE, message = FALSE, results = 'hide'}
 # load EAVA package
 library(EAVA)
-library(stringi)
-library(stringr)
 
 # load embedded example data
 data <- as.data.frame(data_public)

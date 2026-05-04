@@ -183,12 +183,12 @@ codEAVA <- function(df,age_group){
     table(data$AIDS5, exclude = NULL)
 
     # * |++| Diarrhea8 |++| (acute diarrhea with >4 stools on worst day, or diarrhea >14 days [both without blood]);
-    data$diarrhea8 <- ifelse((data$i181o == "y" & data$i183c == "y" & data$i186o == "n") |
+    data$diarrhea8 <- ifelse((data$i181o == "y" & data$i183b == "y" & data$i186o == "n") |
                                (data$i181o == "y" & data$i184b == "y" & data$i186o == "n"),1,2)
     table(data$diarrhea8, exclude=NULL)
 
     # * |++| Dysentery8 |++| (bloody diarrhea with >4 stools on worst day, or bloody diarrhea >14 days);
-    data$dysentery8 <- ifelse((data$i181o == "y" & data$i183c == "y" & data$i186o == "y") |
+    data$dysentery8 <- ifelse((data$i181o == "y" & data$i183b == "y" & data$i186o == "y") |
                                 (data$i181o == "y" & data$i184b == "y" & data$i186o == "y"), 1,2)
     table(data$dysentery8, exclude=NULL)
 
@@ -237,7 +237,7 @@ codEAVA <- function(df,age_group){
     # * |++| possibleari3 |++|;
     data$possibleari3 <- ifelse((data$i153o %in% "y" | data$i159o %in% "y" | (data$i166o %in% "y" & (data$i172o %in% "y" | data$i173d %in% "y"))) &
                                   (data$i156o %in% "y" | data$i166o %in% "y" | data$i172o %in% "y" | data$i173d %in% "y" |
-                                     data$i147o %in% "y" | data$i219o %in% "y" | data$i218o %in% "yes") & data$pertussis %in% 2 & data$pneumoniafb2daysgr %in% 2, 1,2)
+                                     data$i147o %in% "y" | data$i219o %in% "y" | data$i218o %in% "y") & data$pertussis %in% 2 & data$pneumoniafb2daysgr %in% 2, 1,2)
     table(data$possibleari3, exclude=NULL)
 
     # * Sepsis wo/malaria251;
